@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/imagen_gimnasio"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:gravity="center"
+        android:text="Crear Entrenamiento"
+        android:textSize="24sp"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:textColor="@color/yellow"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/etTrainingName"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:hint="Nombre del entrenamiento" />
+
+    <EditText
+        android:id="@+id/etExercise"
+        android:layout_width="match_parent"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:hint="Nombre del ejercicio" />
+
+    <Button
+        android:id="@+id/btnAddExercise"
+        android:layout_width="152dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/button_background"
+        android:text="Agregar Ejericio" />
+
+    <TextView
+        android:id="@+id/tvExercises"
+
+        android:textColor="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Ejercicios:"
+        android:background="@android:color/transparent"
+        android:textSize="18sp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:textColor="@color/white"
+        android:layout_weight="1"
+        android:backgroundTint="@color/black"
+        android:background="@android:color/transparent">
+
+        <LinearLayout
+            android:id="@+id/llExerciseList"
+            android:layout_width="match_parent"
+            android:textColor="@color/white"
+
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btnSaveTraining"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_background"
+        android:text="Guardar Entrenamiento" />
+</LinearLayout>

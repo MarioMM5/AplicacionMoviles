@@ -1,0 +1,12 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="Theme.Mygymnastic" parent="Theme.MaterialComponents.DayNight">
+        <!-- Tema general de la app -->
+    </style>
+
+    <style name="Theme.Mygymnastic.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/black</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/icono_aplicacion</item>
+        <item name="windowSplashScreenAnimationDuration">2000</item>
+    </style>
+</resources>

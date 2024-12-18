@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.Mygymnastic" parent="Theme.AppCompat.Light.NoActionBar">
+
+
+    </style>
+    <style name="ButtonStyle" parent="android:Widget.Button">
+        <item name="android:background">@drawable/button_background</item>
+        <item name="android:minHeight">48dip</item>
+        <item name="android:minWidth">64dip</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+</resources>
