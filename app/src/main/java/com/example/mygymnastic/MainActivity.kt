@@ -1,5 +1,6 @@
 package com.example.mygymnastic2
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -115,7 +116,16 @@ class MainActivity : AppCompatActivity() {
         // Convertir la primera letra del día a mayúscula
         return dateFormat.format(calendar.time).replaceFirstChar { it.uppercase(locale) }
     }
+    override fun onResume() {
+        super.onResume()
 
+        val sharedPreferences = getSharedPreferences("TrainingPrefs", Context.MODE_PRIVATE)
+        val trainingName = sharedPreferences.getString("trainingName", "Sin entrenamiento")
+        val exercises = sharedPreferences.getStringSet("exercises", emptySet())?.toList()
+
+        println("Nombre del Entrenamiento: $trainingName")
+        println("Lista de Ejercicios: $exercises")
+    }
     companion object {
         private const val SELECT_TRAINING_REQUEST = 1
     }

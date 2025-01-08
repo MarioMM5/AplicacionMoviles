@@ -1,6 +1,5 @@
 package com.example.mygymnastic2
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -8,93 +7,93 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mygymnastic.R
-import org.json.JSONArray
-import org.json.JSONObject
+import java.util.stream.Collectors.toList
 
 class RecomendacionesEntrenamiento : AppCompatActivity() {
 
     private lateinit var listView: ListView
     private lateinit var btnStartTraining: Button
-    private lateinit var btnDeleteTraining: Button
 
-    private var selectedTrainingJson: String? = null
-    private var selectedTrainingPosition: Int = -1
-    private lateinit var trainingSet: MutableSet<String>
+    private var selectedTrainingName: String? = null
+    private var selectedExercises: List<String>? = null
 
+    // Lista de entrenamientos predefinida
+    private val trainingData: Map<String, List<String>> = mapOf(
+        "Cardio Básico" to listOf("Saltos", "Burpees", "Correr en el lugar"),
+        "Fuerza Superior" to listOf("Flexiones", "Plancha", "Dominadas"),
+        "Yoga Relajante" to listOf("Postura del niño", "Perro hacia abajo", "Torsión espinal"),
+        "Piernas Poderosas" to listOf("Sentadillas", "Zancadas", "Puente de glúteos"),
+        "HIIT Avanzado" to listOf("Burpees", "Sprints", "Saltos con tijera")
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_seleccionar_entrenamiento)
+        setContentView(R.layout.activity_recomendaciones_entrenamiento)
 
-        listView = findViewById(R.id.lvTrainings)
-        btnStartTraining = findViewById(R.id.btnStartTraining)
+        listView = findViewById(R.id.listaRecomendados)
+        btnStartTraining = findViewById(R.id.btnEmpezarEntrenamiento)
+
         btnStartTraining.isEnabled = false
-
-        trainingSet = mutableSetOf(
-            createTrainingJson("Cardio Básico", listOf("Saltos", "Burpees", "Correr en el lugar")),
-            createTrainingJson("Fuerza Superior", listOf("Flexiones", "Plancha", "Dominadas")),
-            createTrainingJson("Yoga Relajante", listOf("Postura del niño", "Perro hacia abajo", "Torsión espinal")),
-            createTrainingJson("Piernas Poderosas", listOf("Sentadillas", "Zancadas", "Puente de glúteos")),
-            createTrainingJson("HIIT Avanzado", listOf("Burpees", "Sprints", "Saltos con tijera"))
+        val arrayNombres: Array<String>
+        // Configurar el adaptador de la lista con los nombres de los entrenamientos
+        val adapter = CustomAdapter(
+            this,trainingData.keys.toList()
         )
-
-        val adapter = CustomAdapter2(this, trainingSet.toList())
         listView.adapter = adapter
-        listView.setOnItemClickListener { _, _, position, _ ->
-            selectedTrainingJson = trainingSet.elementAt(position)
-            selectedTrainingPosition = position
+
+        // Manejar la selección en el ListView
+        listView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
+            selectedTrainingName = trainingData.keys.elementAt(position)
+            selectedExercises = trainingData.values.elementAt(position)
 
             btnStartTraining.isEnabled = true
-            btnDeleteTraining.isEnabled = true
         }
 
+        // Configurar el botón para iniciar entrenamiento
         btnStartTraining.setOnClickListener {
             startTraining()
         }
     }
 
     private fun startTraining() {
-        if (selectedTrainingJson != null) {
-            val selectedTraining = JSONObject(selectedTrainingJson!!)
-            val exercisesArray = selectedTraining.getJSONArray("exercises")
-            val exercises = mutableListOf<String>()
+        selectedTrainingName?.let { trainingName ->
+            selectedExercises?.let { exercises ->
+                // Guardar en SharedPreferences
+                val sharedPreferences = getSharedPreferences("TrainingPrefs", Context.MODE_PRIVATE)
+                val editor = sharedPreferences.edit()
 
-            for (i in 0 until exercisesArray.length()) {
-                exercises.add(exercisesArray.getString(i))
+                // Guardar el nombre del entrenamiento y la lista de ejercicios
+                editor.putString("trainingName", trainingName)
+                editor.putStringSet("exercises", exercises.toSet())
+
+                editor.apply()
+
+                // Enviar al MainActivity
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish()
             }
-
-            val resultIntent = Intent().apply {
-                putStringArrayListExtra("exercises", ArrayList(exercises))
-                putExtra("trainingName", selectedTraining.getString("name"))
-            }
-
-            setResult(Activity.RESULT_OK, resultIntent)
-            finish()
         }
     }
-}
-private fun createTrainingJson(name: String, exercises: List<String>): String {
-    val jsonObject = JSONObject()
-    jsonObject.put("name", name)
-    jsonObject.put("exercises", JSONArray(exercises))
-    return jsonObject.toString()
-}
-class CustomAdapter2(context: Context, private val items: List<String>) : ArrayAdapter<String>(context, 0, items) {
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val view = convertView ?: LayoutInflater.from(context).inflate(android.R.layout.simple_list_item_1, parent, false)
+    class CustomAdapter(context: Context, private val items: List<String>) : ArrayAdapter<String>(context, 0, items) {
+        override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+            val view = convertView ?: LayoutInflater.from(context).inflate(android.R.layout.simple_list_item_1, parent, false)
 
-        // Cambia el color del texto según la posición
-        val textView = view.findViewById<TextView>(android.R.id.text1)
-        textView.text = items[position]
+            // Cambia el color del texto según la posición
+            val textView = view.findViewById<TextView>(android.R.id.text1)
+            textView.text = items[position]
 
-        textView.setTextColor(Color.WHITE)
-        return view
+            textView.setTextColor(Color.WHITE)
+            return view
+        }
     }
+
 }
+
