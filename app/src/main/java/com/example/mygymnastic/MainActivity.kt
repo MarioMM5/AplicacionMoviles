@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var btnNext: Button
     private lateinit var btnCreateTraining: Button
     private lateinit var btnSelectTraining: Button
+    private lateinit var btnRecommendationTraining : Button
 
     private var currentExerciseIndex = 0
     private var exercises: List<String> = emptyList()
@@ -36,6 +37,7 @@ class MainActivity : AppCompatActivity() {
         btnNext = findViewById(R.id.btnNext)
         btnCreateTraining = findViewById(R.id.btnCreateTraining)
         btnSelectTraining = findViewById(R.id.btnSelectTraining)
+        btnRecommendationTraining = findViewById(R.id.btnRecommendedTrainings)
 
         val currentDate = getCurrentDateInSpanish()
         tvDate.text = currentDate
@@ -65,6 +67,10 @@ class MainActivity : AppCompatActivity() {
         btnSelectTraining.setOnClickListener {
             val intent = Intent(this, SeleccionarEntrenamiento::class.java)
             startActivityForResult(intent, SELECT_TRAINING_REQUEST)
+        }
+        btnRecommendationTraining.setOnClickListener {
+            val intent = Intent(this, RecomendacionesEntrenamiento::class.java)
+            startActivity(intent)
         }
     }
 

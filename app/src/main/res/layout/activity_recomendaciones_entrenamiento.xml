@@ -8,27 +8,28 @@
     >
 
     <TextView
-        android:id="@+id/tvTitle"
+        android:id="@+id/titulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginBottom="16dp"
         android:textColor="@color/white"
-        android:text="Entrenamientos Guardados"
+        android:text="Entrenamientos Recomendados"
         android:textSize="24sp"
         android:textStyle="bold"
         android:background="@android:color/transparent"/>
 
     <ListView
-        android:id="@+id/lvTrainings"
+        android:id="@+id/listaRecomendados"
         android:layout_width="match_parent"
         android:layout_height="516dp"
         android:layout_weight="1"
         android:background="@android:color/transparent"
+        android:textColor="@color/white"
         android:dividerHeight="16dp" />
 
     <Button
-        android:id="@+id/btnStartTraining"
+        android:id="@+id/btnEmpezarEntrenamiento"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/button_background"
@@ -37,12 +38,4 @@
         android:layout_marginBottom="4dp"
         android:textColor="@color/black" />
 
-    <Button
-        android:id="@+id/btnDeleteTraining"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:enabled="false"
-        android:background="@drawable/button_background"
-        android:textColor="@color/black"
-        android:text="Borrar Entrenamiento" />
 </LinearLayout>

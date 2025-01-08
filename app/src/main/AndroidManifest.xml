@@ -19,6 +19,7 @@
         </activity>
         <activity android:name="com.example.mygymnastic2.CrearEntrenamiento" />
         <activity android:name="com.example.mygymnastic2.SeleccionarEntrenamiento" />
+        <activity android:name="com.example.mygymnastic2.RecomendacionesEntrenamiento"/>
 
     </application>
 
