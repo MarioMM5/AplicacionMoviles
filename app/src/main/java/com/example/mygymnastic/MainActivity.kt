@@ -20,20 +20,19 @@ class MainActivity : AppCompatActivity() {
     private lateinit var btnNext: Button
     private lateinit var btnCreateTraining: Button
     private lateinit var btnSelectTraining: Button
-    private lateinit var btnRecommendationTraining : Button
+    private lateinit var btnRecommendationTraining: Button
 
     private var currentExerciseIndex = 0
-    private var exercises: List<String> = emptyList()
+    private var exercises: MutableList<String> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
         setTheme(R.style.Theme_Mygymnastic)
         setContentView(R.layout.activity_main)
 
         tvDate = findViewById(R.id.tvDate)
         tvExercise = findViewById(R.id.tvExercise)
-        tvPhrase = findViewById(R.id.tvPhrase)  // TextView para mostrar el nombre del entrenamiento
+        tvPhrase = findViewById(R.id.tvPhrase) // TextView para mostrar el nombre del entrenamiento
         btnPrev = findViewById(R.id.btnPrev)
         btnNext = findViewById(R.id.btnNext)
         btnCreateTraining = findViewById(R.id.btnCreateTraining)
@@ -44,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         tvDate.text = currentDate
 
         updateExerciseDisplay()
-        updateTrainingName(null)  // Muestra un mensaje predeterminado al inicio
+        updateTrainingName(null) // Muestra un mensaje predeterminado al inicio
 
         btnPrev.setOnClickListener {
             if (currentExerciseIndex > 0) {
@@ -69,24 +68,45 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, SeleccionarEntrenamiento::class.java)
             startActivityForResult(intent, SELECT_TRAINING_REQUEST)
         }
+
         btnRecommendationTraining.setOnClickListener {
             val intent = Intent(this, RecomendacionesEntrenamiento::class.java)
-            startActivity(intent)
+            startActivityForResult(intent, RECOMMENDATION_REQUEST)
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == SELECT_TRAINING_REQUEST && resultCode == RESULT_OK) {
-            val exercises = data?.getStringArrayListExtra("exercises") ?: emptyList()
-            val trainingName = data?.getStringExtra("trainingName")
-
-            this.exercises = exercises
-            currentExerciseIndex = 0
-
-            updateExerciseDisplay()
-            updateTrainingName(trainingName)  // Actualiza el nombre del entrenamiento
+        if (resultCode == RESULT_OK && data != null) {
+            when (requestCode) {
+                SELECT_TRAINING_REQUEST -> handleTrainingResult(data)
+                RECOMMENDATION_REQUEST -> handleRecommendationResult(data)
+            }
         }
+    }
+
+    private fun handleTrainingResult(data: Intent) {
+        val newExercises = data.getStringArrayListExtra("exercises") ?: emptyList()
+        val trainingName = data.getStringExtra("trainingName")
+
+        this.exercises.clear() // Reemplaza ejercicios actuales
+        this.exercises.addAll(newExercises)
+        currentExerciseIndex = 0
+
+        updateExerciseDisplay()
+        updateTrainingName(trainingName)
+    }
+
+    private fun handleRecommendationResult(data: Intent) {
+        val newExercises = data.getStringArrayListExtra("exercises") ?: emptyList()
+        val trainingName = data.getStringExtra("trainingName")
+
+        // Agrega ejercicios a la lista existente
+        this.exercises.addAll(newExercises)
+        currentExerciseIndex = 0
+
+        updateExerciseDisplay()
+        updateTrainingName(trainingName)
     }
 
     private fun updateExerciseDisplay() {
@@ -113,20 +133,12 @@ class MainActivity : AppCompatActivity() {
         val calendar = Calendar.getInstance()
         val dateFormat = SimpleDateFormat("EEEE, dd 'de' MMMM 'de' yyyy", locale)
 
-        // Convertir la primera letra del día a mayúscula
         return dateFormat.format(calendar.time).replaceFirstChar { it.uppercase(locale) }
     }
-    override fun onResume() {
-        super.onResume()
 
-        val sharedPreferences = getSharedPreferences("TrainingPrefs", Context.MODE_PRIVATE)
-        val trainingName = sharedPreferences.getString("trainingName", "Sin entrenamiento")
-        val exercises = sharedPreferences.getStringSet("exercises", emptySet())?.toList()
-
-        println("Nombre del Entrenamiento: $trainingName")
-        println("Lista de Ejercicios: $exercises")
-    }
     companion object {
         private const val SELECT_TRAINING_REQUEST = 1
+        private const val RECOMMENDATION_REQUEST = 2
     }
 }
+
