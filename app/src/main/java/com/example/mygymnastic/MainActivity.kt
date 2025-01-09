@@ -89,7 +89,7 @@ class MainActivity : AppCompatActivity() {
         val newExercises = data.getStringArrayListExtra("exercises") ?: emptyList()
         val trainingName = data.getStringExtra("trainingName")
 
-        this.exercises.clear() // Reemplaza ejercicios actuales
+        this.exercises.clear() // Vaciar la lista antes de agregar los nuevos ejercicios
         this.exercises.addAll(newExercises)
         currentExerciseIndex = 0
 
@@ -101,7 +101,7 @@ class MainActivity : AppCompatActivity() {
         val newExercises = data.getStringArrayListExtra("exercises") ?: emptyList()
         val trainingName = data.getStringExtra("trainingName")
 
-        // Agrega ejercicios a la lista existente
+        this.exercises.clear() // Vaciar la lista antes de agregar los nuevos ejercicios
         this.exercises.addAll(newExercises)
         currentExerciseIndex = 0
 
@@ -141,4 +141,3 @@ class MainActivity : AppCompatActivity() {
         private const val RECOMMENDATION_REQUEST = 2
     }
 }
-
