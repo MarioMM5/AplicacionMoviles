@@ -37,11 +37,13 @@ class RecomendacionesEntrenamiento : AppCompatActivity() {
 
         // Entrenamientos predefinidos
         trainingSet = mutableSetOf(
-            JSONObject(mapOf("name" to "Cardio Básico", "exercises" to listOf("Saltos", "Burpees", "Correr en el lugar"))).toString(),
-            JSONObject(mapOf("name" to "Fuerza Superior", "exercises" to listOf("Flexiones", "Plancha", "Dominadas"))).toString(),
-            JSONObject(mapOf("name" to "Yoga Relajante", "exercises" to listOf("Postura del niño", "Perro hacia abajo", "Torsión espinal"))).toString(),
-            JSONObject(mapOf("name" to "Piernas Poderosas", "exercises" to listOf("Sentadillas", "Zancadas", "Puente de glúteos"))).toString(),
-            JSONObject(mapOf("name" to "HIIT Avanzado", "exercises" to listOf("Burpees", "Sprints", "Saltos con tijera"))).toString()
+            JSONObject(mapOf("name" to "Torso ", "exercises" to listOf("Dominadas", "Remo en polea baja", "Pull over", "Press en maquina",
+                "Press inclinado en smith", "cruce en poleas"))).toString(),
+            JSONObject(mapOf("name" to "Pierna", "exercises" to listOf("Sentadilla libre", "Prensa unilateral", "Femoral tumbado",
+                "Elevacion de gemelos de pie", "Elevaciones de cuadriceps", "Plancha", "Cable crunch"))).toString(),
+            JSONObject(mapOf("name" to "Brazo", "exercises" to listOf("Curl de biceps en polea", "Curl martillo", "Curl con mancuernas"
+            , "Press frances con mancuernas", "Fondos", "Extensiones en polea", "Antebrazo a eleccion"))).toString(),
+            JSONObject(mapOf("name" to "Aerobico", "exercises" to listOf("Caminata con elevacion", "Plancha", "Plancha lateral", "Dominadas", "Fondos", "Bici"))).toString()
         )
 
         val trainingList = trainingSet.map { jsonString ->
