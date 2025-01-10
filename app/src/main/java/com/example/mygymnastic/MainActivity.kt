@@ -1,6 +1,5 @@
 package com.example.mygymnastic2
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -32,7 +31,7 @@ class MainActivity : AppCompatActivity() {
 
         tvDate = findViewById(R.id.tvDate)
         tvExercise = findViewById(R.id.tvExercise)
-        tvPhrase = findViewById(R.id.tvPhrase) // TextView para mostrar el nombre del entrenamiento
+        tvPhrase = findViewById(R.id.tvPhrase)
         btnPrev = findViewById(R.id.btnPrev)
         btnNext = findViewById(R.id.btnNext)
         btnCreateTraining = findViewById(R.id.btnCreateTraining)
@@ -43,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         tvDate.text = currentDate
 
         updateExerciseDisplay()
-        updateTrainingName(null) // Muestra un mensaje predeterminado al inicio
+        updateTrainingName(null)
 
         btnPrev.setOnClickListener {
             if (currentExerciseIndex > 0) {
@@ -89,7 +88,7 @@ class MainActivity : AppCompatActivity() {
         val newExercises = data.getStringArrayListExtra("exercises") ?: emptyList()
         val trainingName = data.getStringExtra("trainingName")
 
-        this.exercises.clear() // Vaciar la lista antes de agregar los nuevos ejercicios
+        this.exercises.clear()
         this.exercises.addAll(newExercises)
         currentExerciseIndex = 0
 
@@ -101,7 +100,7 @@ class MainActivity : AppCompatActivity() {
         val newExercises = data.getStringArrayListExtra("exercises") ?: emptyList()
         val trainingName = data.getStringExtra("trainingName")
 
-        this.exercises.clear() // Vaciar la lista antes de agregar los nuevos ejercicios
+        this.exercises.clear()
         this.exercises.addAll(newExercises)
         currentExerciseIndex = 0
 

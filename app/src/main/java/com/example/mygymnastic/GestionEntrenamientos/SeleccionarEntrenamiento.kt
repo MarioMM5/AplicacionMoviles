@@ -97,7 +97,6 @@ class SeleccionarEntrenamiento : AppCompatActivity() {
 
             Toast.makeText(this, "Entrenamiento eliminado", Toast.LENGTH_SHORT).show()
 
-            // Actualizar la lista
             updateTrainingList()
             btnStartTraining.isEnabled = false
             btnDeleteTraining.isEnabled = false
@@ -118,7 +117,6 @@ class CustomAdapter(context: Context, private val items: List<String>) : ArrayAd
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view = convertView ?: LayoutInflater.from(context).inflate(android.R.layout.simple_list_item_1, parent, false)
 
-        // Cambia el color del texto según la posición
         val textView = view.findViewById<TextView>(android.R.id.text1)
         textView.text = items[position]
 

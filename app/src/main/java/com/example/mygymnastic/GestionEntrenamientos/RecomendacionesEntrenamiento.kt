@@ -12,7 +12,6 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.mygymnastic.R
 import org.json.JSONObject
@@ -91,7 +90,6 @@ class CustomAdapter2(context: Context, private val items: List<String>) : ArrayA
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view = convertView ?: LayoutInflater.from(context).inflate(android.R.layout.simple_list_item_1, parent, false)
 
-        // Cambia el color del texto según la posición
         val textView = view.findViewById<TextView>(android.R.id.text1)
         textView.text = items[position]
 

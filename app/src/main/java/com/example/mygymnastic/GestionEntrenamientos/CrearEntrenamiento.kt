@@ -1,7 +1,5 @@
 package com.example.mygymnastic2
 
-import android.annotation.SuppressLint
-import android.graphics.Color
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -58,7 +56,6 @@ class CrearEntrenamiento : AppCompatActivity() {
             textSize = 16f
             setPadding(0, 8, 0, 8)
 
-            // Cambiar el color del texto antes de agregarlo a la lista
             setTextColor(ContextCompat.getColor(context, R.color.white))
 
         }
